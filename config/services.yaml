@@ -7,4 +7,6 @@ services:
     tags:
       - { name: request.param_converter, converter: hierarchical_routes_param_converter }
   TwoKings\Hierarchy\HierarchicalCanonical:
-    decorates: Bolt\Cache\CanonicalCacher
+    decoration_priority: 1
+    decorates: Bolt\Canonical
+    # decorates: Bolt\Cache\CanonicalCacher
