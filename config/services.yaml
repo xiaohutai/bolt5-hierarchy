@@ -1,0 +1,14 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+  hierarchical_routes_param_converter:
+    class: App\HierarchicalRoutes\ParamConverter
+    tags:
+      - { name: request.param_converter, converter: hierarchical_routes_param_converter }
+  TwoKings\Hierarchy:
+    resource: '../src/*'
+    exclude:
+      - ../src/HierarchicalRoutes/RecordNode.php
+  TwoKings\Hieararchy\HierarchicalCanonical:
+    decorates: Bolt\Cache\CanonicalCacher

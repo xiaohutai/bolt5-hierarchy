@@ -1,0 +1,9 @@
+# Specify menus to use for making a hierarchy
+menu:
+  - main
+
+# Additional settings. New updates may introduce new options here.
+settings:
+  option1: value
+  option2: value
+  option3: value

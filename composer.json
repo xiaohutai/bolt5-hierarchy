@@ -1,0 +1,29 @@
+{
+    "name": "twokings/hierarchy",
+    "description": "Simple hierarchical content for Bolt 5",
+    "type": "bolt-extension",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Xiao-Hu Tai",
+            "email": "xiao@twokings.nl"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.3"
+    },
+    "require-dev": {
+        "bolt/core": "^5.0.0",
+        "symplify/easy-coding-standard": "^10.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "TwoKings\\Hierarchy\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "entrypoint": "TwoKings\\Hierarchy\\Extension"
+    }
+}
