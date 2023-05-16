@@ -4,21 +4,34 @@ declare(strict_types=1);
 
 namespace TwoKings\Hierarchy\Controller;
 
+use Bolt\Controller\Frontend\DetailController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Stopwatch\Stopwatch;
 use TwoKings\Hierarchy\RecordNode;
 
 class Controller extends AbstractController
 {
+    private Stopwatch $stopwatch;
+
+    private DetailController $detailController;
+
+    public function __construct(Stopwatch $stopwatch, DetailController $detailController)
+    {
+        $this->stopwatch = $stopwatch;
+        $this->detailController = $detailController;
+    }
+
    /**
     * @Route("/{slug}", requirements={"slug"=".+"}, name="hierarchical_route")
     * @ParamConverter(name="hierarchical_route")
     */
     public function handleRoute(Request $request, RecordNode $node): Response
     {
+        $this->stopwatch->start('hier.HandleRoute');
         // $this->requestStack->getCurrentRequest()->get('_route_params')
         //dd($request , $request->get('_route_params'));
 
@@ -34,16 +47,22 @@ class Controller extends AbstractController
         //   both `_route_params` and `_route` to be set.
         // - Query-params are removed by forwarding, so add these manually as the last
         //   parameter.
-        $response = $this->forward('Bolt\Controller\Frontend\DetailController::record', [
-            'slugOrId'         => $slugOrId,
-            'contentTypeSlug'  => $contentTypeSlug,
-            'requirePublished' => false,
-            '_locale'          => $request->getLocale(),
-            '_route_params'    => $routeParams,
-            '_route'           => 'record',
-            // '_firewall_context' => 'security.firewall.map.context.main',
-            // '_security_firewall_run' => '_security_main',
-        ], $request->query->all());
+//        $response = $this->forward('Bolt\Controller\Frontend\DetailController::record', [
+//            'slugOrId'         => $slugOrId,
+//            'contentTypeSlug'  => $contentTypeSlug,
+//            'requirePublished' => false,
+//            '_locale'          => $request->getLocale(),
+//            '_route_params'    => $routeParams,
+//            '_route'           => 'record',
+//            // '_firewall_context' => 'security.firewall.map.context.main',
+//            // '_security_firewall_run' => '_security_main',
+//        ], $request->query->all());
+
+        // Suggestion: Instead of forwarding the request, call the controller. In my (bob's
+        // initial tests, this seems to make a difference of about ~100ms pet request.
+        $response = $this->detailController->record($slugOrId, $contentTypeSlug, false, $request->getLocale());
+
+        $this->stopwatch->stop('hier.HandleRoute');
 
         return $response;
 
