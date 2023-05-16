@@ -25,10 +25,10 @@ class Controller extends AbstractController
         $this->detailController = $detailController;
     }
 
-   /**
-    * @Route("/{slug}", requirements={"slug"=".+"}, name="hierarchical_route")
-    * @ParamConverter(name="hierarchical_route")
-    */
+    /**
+     * @Route("/{slug}", requirements={"slug"=".+"}, name="hierarchical_route")
+     * @ParamConverter(name="hierarchical_route")
+     */
     public function handleRoute(Request $request, RecordNode $node): Response
     {
         $this->stopwatch->start('hier.HandleRoute');

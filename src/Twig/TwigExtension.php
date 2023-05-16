@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace TwoKings\Hierarchy\Twig;
 
-use TwoKings\Hierarchy\HierarchicalMenuBuilder;
-use TwoKings\Hierarchy\MenuParser;
-use TwoKings\Hierarchy\RecordNode;
-use TwoKings\Hierarchy\RouteGenerator;
 use Bolt\Entity\Content;
 use Bolt\Storage\Query;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -15,6 +11,10 @@ use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
+use TwoKings\Hierarchy\HierarchicalMenuBuilder;
+use TwoKings\Hierarchy\MenuParser;
+use TwoKings\Hierarchy\RecordNode;
+use TwoKings\Hierarchy\RouteGenerator;
 
 class TwigExtension extends AbstractExtension
 {
@@ -63,8 +63,8 @@ class TwigExtension extends AbstractExtension
         ];
     }
 
-    public function getLink($record) {
-
+    public function getLink($record)
+    {
         $contentTypeSlug = $record->getDefinition()['singular_slug'];
         $id = $record->getId();
         $boltId = $contentTypeSlug . '/' . $id;
@@ -112,7 +112,7 @@ class TwigExtension extends AbstractExtension
         $parents = [];
 
         $current = $this->getNode($record);
-        while($current && $current->hasParent()) {
+        while ($current && $current->hasParent()) {
             $parent = $current->getParent();
             $parents[] = $parent;
             $current = $parent;

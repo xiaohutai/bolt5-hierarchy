@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace TwoKings\Hierarchy;
 
-use TwoKings\Hierarchy\MenuParser;
 use Bolt\Canonical;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use TwoKings\Hierarchy\MenuParser;
 
 class HierarchicalCanonical extends Canonical
 {
