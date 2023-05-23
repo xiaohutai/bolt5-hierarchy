@@ -58,8 +58,8 @@ class Controller extends AbstractController
 //            // '_security_firewall_run' => '_security_main',
 //        ], $request->query->all());
 
-        // Suggestion: Instead of forwarding the request, call the controller. In my (bob's
-        // initial tests, this seems to make a difference of about ~100ms pet request.
+        // Suggestion: Instead of forwarding the request, call the controller. In my (bob's)
+        // initial tests, this seems to make a difference of about ~100ms per request.
         $response = $this->detailController->record($slugOrId, $contentTypeSlug, false, $request->getLocale());
 
         $this->stopwatch->stop('hier.HandleRoute');
